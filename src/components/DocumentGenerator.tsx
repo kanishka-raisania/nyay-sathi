@@ -22,40 +22,67 @@ export const DocumentGenerator = ({ language, onBack }: DocumentGeneratorProps) 
   const GEMINI_API_KEY = "AIzaSyA17r5DJ8kfRUwcdjv1LT5eHkTDqkVj_5I";
 
   const documentTypes = [
-    { value: "rent_agreement", label: "Rent Agreement" },
-    { value: "sale_deed", label: "Sale Deed" },
-    { value: "will", label: "Will/Testament" },
-    { value: "power_of_attorney", label: "Power of Attorney" },
-    { value: "affidavit", label: "Affidavit" },
-    { value: "loan_agreement", label: "Loan Agreement" }
+    { value: "land_ownership", label: "Land Ownership Form", labelHindi: "भूमि स्वामित्व फॉर्म" },
+    { value: "rti_application", label: "RTI Application", labelHindi: "आरटीआई आवेदन" },
+    { value: "pmkisan_form", label: "PM-KISAN Subsidy Form", labelHindi: "पीएम-किसान सब्सिडी फॉर्म" },
+    { value: "legal_heir", label: "Legal Heir Certificate", labelHindi: "कानूनी वारिस प्रमाणपत्र" },
+    { value: "affidavit", label: "Affidavit", labelHindi: "हलफनामा" },
+    { value: "income_certificate", label: "Income Certificate", labelHindi: "आय प्रमाणपत्र" }
   ];
 
   const getFormFields = (docType: string) => {
-    switch (docType) {
-      case "rent_agreement":
-        return [
-          { key: "landlord_name", label: "Landlord Name", type: "text" },
-          { key: "tenant_name", label: "Tenant Name", type: "text" },
-          { key: "property_address", label: "Property Address", type: "textarea" },
-          { key: "monthly_rent", label: "Monthly Rent (₹)", type: "number" },
-          { key: "security_deposit", label: "Security Deposit (₹)", type: "number" },
-          { key: "lease_duration", label: "Lease Duration (months)", type: "number" }
-        ];
-      case "affidavit":
-        return [
-          { key: "applicant_name", label: "Your Full Name", type: "text" },
-          { key: "father_name", label: "Father's Name", type: "text" },
-          { key: "address", label: "Complete Address", type: "textarea" },
-          { key: "purpose", label: "Purpose of Affidavit", type: "textarea" },
-          { key: "statement", label: "Statement/Declaration", type: "textarea" }
-        ];
-      default:
-        return [
-          { key: "party1_name", label: "First Party Name", type: "text" },
-          { key: "party2_name", label: "Second Party Name", type: "text" },
-          { key: "details", label: "Additional Details", type: "textarea" }
-        ];
-    }
+    const fields = {
+      land_ownership: [
+        { key: "full_name", label: "Full Name", labelHindi: "पूरा नाम", type: "text" },
+        { key: "aadhaar_number", label: "Aadhaar Number", labelHindi: "आधार संख्या", type: "text" },
+        { key: "village", label: "Village", labelHindi: "गाँव", type: "text" },
+        { key: "district", label: "District", labelHindi: "जिला", type: "text" },
+        { key: "plot_number", label: "Plot Number", labelHindi: "प्लॉट संख्या", type: "text" },
+        { key: "plot_area", label: "Plot Area (in acres)", labelHindi: "प्लॉट क्षेत्रफल (एकड़ में)", type: "text" }
+      ],
+      rti_application: [
+        { key: "full_name", label: "Full Name", labelHindi: "पूरा नाम", type: "text" },
+        { key: "address", label: "Complete Address", labelHindi: "पूरा पता", type: "textarea" },
+        { key: "department", label: "Government Department", labelHindi: "सरकारी विभाग", type: "text" },
+        { key: "information_sought", label: "Information Required", labelHindi: "आवश्यक जानकारी", type: "textarea" },
+        { key: "reason", label: "Reason for Information", labelHindi: "जानकारी का कारण", type: "textarea" }
+      ],
+      pmkisan_form: [
+        { key: "full_name", label: "Full Name", labelHindi: "पूरा नाम", type: "text" },
+        { key: "aadhaar_number", label: "Aadhaar Number", labelHindi: "आधार संख्या", type: "text" },
+        { key: "village", label: "Village", labelHindi: "गाँव", type: "text" },
+        { key: "district", label: "District", labelHindi: "जिला", type: "text" },
+        { key: "land_area", label: "Total Land Area (acres)", labelHindi: "कुल भूमि क्षेत्रफल (एकड़)", type: "text" },
+        { key: "bank_account", label: "Bank Account Number", labelHindi: "बैंक खाता संख्या", type: "text" }
+      ],
+      legal_heir: [
+        { key: "deceased_name", label: "Name of Deceased", labelHindi: "मृतक का नाम", type: "text" },
+        { key: "applicant_name", label: "Your Full Name", labelHindi: "आपका पूरा नाम", type: "text" },
+        { key: "relationship", label: "Relationship with Deceased", labelHindi: "मृतक से रिश्ता", type: "text" },
+        { key: "aadhaar_number", label: "Aadhaar Number", labelHindi: "आधार संख्या", type: "text" },
+        { key: "address", label: "Complete Address", labelHindi: "पूरा पता", type: "textarea" },
+        { key: "purpose", label: "Purpose of Certificate", labelHindi: "प्रमाणपत्र का उद्देश्य", type: "textarea" }
+      ],
+      affidavit: [
+        { key: "full_name", label: "Full Name", labelHindi: "पूरा नाम", type: "text" },
+        { key: "father_name", label: "Father's Name", labelHindi: "पिता का नाम", type: "text" },
+        { key: "aadhaar_number", label: "Aadhaar Number", labelHindi: "आधार संख्या", type: "text" },
+        { key: "address", label: "Complete Address", labelHindi: "पूरा पता", type: "textarea" },
+        { key: "purpose", label: "Purpose of Affidavit", labelHindi: "हलफनामे का उद्देश्य", type: "textarea" },
+        { key: "statement", label: "Statement/Declaration", labelHindi: "कथन/घोषणा", type: "textarea" }
+      ],
+      income_certificate: [
+        { key: "full_name", label: "Full Name", labelHindi: "पूरा नाम", type: "text" },
+        { key: "father_name", label: "Father's Name", labelHindi: "पिता का नाम", type: "text" },
+        { key: "aadhaar_number", label: "Aadhaar Number", labelHindi: "आधार संख्या", type: "text" },
+        { key: "village", label: "Village", labelHindi: "गाँव", type: "text" },
+        { key: "district", label: "District", labelHindi: "जिला", type: "text" },
+        { key: "annual_income", label: "Annual Income (₹)", labelHindi: "वार्षिक आय (₹)", type: "number" },
+        { key: "occupation", label: "Occupation", labelHindi: "व्यवसाय", type: "text" }
+      ]
+    };
+    
+    return fields[docType as keyof typeof fields] || [];
   };
 
   const generateDocument = async () => {
@@ -159,7 +186,7 @@ Make it professional but easy to understand. Include proper legal formatting and
               <SelectContent>
                 {documentTypes.map((type) => (
                   <SelectItem key={type.value} value={type.value}>
-                    {type.label}
+                    {language === 'hindi' ? type.labelHindi : type.label}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -177,7 +204,7 @@ Make it professional but easy to understand. Include proper legal formatting and
               {formFields.map((field) => (
                 <div key={field.key}>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    {field.label}
+                    {language === 'hindi' && field.labelHindi ? field.labelHindi : field.label}
                   </label>
                   {field.type === "textarea" ? (
                     <Textarea

@@ -6,9 +6,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Mic, Scale, FileText, MessageCircle, Volume2, AlertTriangle } from "lucide-react";
 import { VoiceChatbot } from "@/components/VoiceChatbot";
 import { DocumentGenerator } from "@/components/DocumentGenerator";
+import { GovernmentSchemes } from "@/components/GovernmentSchemes";
+import { HelpScreen } from "@/components/HelpScreen";
+import { BottomNavigation } from "@/components/BottomNavigation";
+import { DisclaimerDialog } from "@/components/DisclaimerDialog";
 
 const Index = () => {
-  const [currentScreen, setCurrentScreen] = useState<"home" | "voice" | "document">("home");
+  const [currentScreen, setCurrentScreen] = useState<"home" | "voice" | "document" | "schemes" | "help">("home");
   const [selectedLanguage, setSelectedLanguage] = useState("english");
 
   const languages = [
@@ -29,6 +33,10 @@ const Index = () => {
     setCurrentScreen("voice");
   };
 
+  const handleNavigate = (screen: "home" | "voice" | "document" | "schemes" | "help") => {
+    setCurrentScreen(screen);
+  };
+
   if (currentScreen === "voice") {
     return <VoiceChatbot language={selectedLanguage} onBack={() => setCurrentScreen("home")} />;
   }
@@ -37,9 +45,18 @@ const Index = () => {
     return <DocumentGenerator language={selectedLanguage} onBack={() => setCurrentScreen("home")} />;
   }
 
+  if (currentScreen === "schemes") {
+    return <GovernmentSchemes language={selectedLanguage} onBack={() => setCurrentScreen("home")} />;
+  }
+
+  if (currentScreen === "help") {
+    return <HelpScreen language={selectedLanguage} onBack={() => setCurrentScreen("home")} />;
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-blue-50 p-4">
-      <div className="max-w-md mx-auto space-y-6">
+    <div className="min-h-screen bg-gradient-to-b from-green-50 to-blue-50 pb-20">
+      <DisclaimerDialog language={selectedLanguage} />
+      <div className="max-w-md mx-auto space-y-6 p-4">
         {/* Header */}
         <div className="text-center pt-8">
           <div className="flex items-center justify-center gap-3 mb-4">
@@ -128,6 +145,12 @@ const Index = () => {
           </p>
         </div>
       </div>
+      
+      <BottomNavigation 
+        currentScreen={currentScreen}
+        onNavigate={handleNavigate}
+        language={selectedLanguage}
+      />
     </div>
   );
 };
