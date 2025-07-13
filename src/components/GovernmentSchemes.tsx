@@ -88,7 +88,7 @@ export const GovernmentSchemes = ({ language, onBack }: GovernmentSchemesProps) 
       Language preference: ${language}
       Make the explanation simple and easy to understand for rural citizens. Keep it comprehensive but not too long.`;
 
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`, {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
